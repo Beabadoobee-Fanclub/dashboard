@@ -1,4 +1,4 @@
-// import type { RequestEvent } from '@sveltejs/kit';
+import type { RequestEvent } from '@sveltejs/kit';
 // import { eq } from 'drizzle-orm';
 // import { sha256 } from '@oslojs/crypto/sha2';
 // import { encodeBase64url, encodeHexLowerCase } from '@oslojs/encoding';
@@ -6,7 +6,7 @@
 // import type { DrizzleD1Database } from 'drizzle-orm/d1';
 
 import { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET } from "$env/static/private";
-import type { DiscordAuthResponse } from "$lib";
+import type { DiscordAccount, DiscordAuthResponse } from "$lib";
 
 // const DAY_IN_MS = 1000 * 60 * 60 * 24;
 
@@ -128,4 +128,33 @@ export async function refreshAccessToken(refreshToken: string): Promise<DiscordA
 	})
 
 	return (await data.json()) as DiscordAuthResponse;
+}
+
+export async function getDiscordAccount(accessToken: string): Promise<DiscordAccount | null> {
+	const discord_url = new URL('https://discord.com/api/users/@me');
+	
+	const data = await fetch(discord_url, {
+		headers: {
+			'Authorization': `Bearer ${accessToken}`
+		},
+	})
+
+	return (await data.json()) as DiscordAccount;
+}
+
+export async function setTokenCookies(event: RequestEvent, tokens: DiscordAuthResponse) {
+	event.cookies.set('discord_token', tokens.access_token, {
+        path: '/', // The path of the cookie
+        maxAge: tokens.expires_in, // When the access token expires
+        sameSite: 'strict', // Same site policy
+        secure: true, // HTTPS only
+        httpOnly: true, // HTTP only
+    })
+
+    event.cookies.set('discord_refresh_token', tokens.refresh_token, {
+        path: '/',
+        sameSite: 'strict',
+        secure: true,
+        httpOnly: true,
+    })
 }
