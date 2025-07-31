@@ -1,0 +1,36 @@
+name = "webpage"
+main = ".svelte-kit/cloudflare/_worker.js"
+compatibility_date = "2025-07-30"
+compatibility_flags = ["nodejs_compat"]
+
+services = [
+  { binding = "API", service = "backend" }
+]
+
+[env.production]
+services = [
+  { binding = "API", service = "backend-production" }
+]
+[env.production.vars]
+API_HOST="https://backend-production.giloe-dev.workers.dev"
+
+[env.staging]
+services = [
+  { binding = "API", service = "backend-staging" }
+]
+[env.staging.vars]
+API_HOST="https://backend-staging.giloe-dev.workers.dev"
+
+services = [
+  { binding = "API", service = "backend" }
+]
+
+[vars]
+API_HOST="http://localhost:8787"
+
+[assets]
+binding = "ASSETS"
+directory = ".svelte-kit/cloudflare"
+
+[observability]
+enabled = true
