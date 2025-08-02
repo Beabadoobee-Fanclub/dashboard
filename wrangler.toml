@@ -1,7 +1,7 @@
 name = "webpage"
 main = ".svelte-kit/cloudflare/_worker.js"
 compatibility_date = "2025-07-30"
-compatibility_flags = ["nodejs_compat"]
+compatibility_flags = ["nodejs_compat", "global_fetch_private_origin"]
 
 services = [
   { binding = "API", service = "backend" }
@@ -26,7 +26,7 @@ services = [
 ]
 
 [vars]
-API_HOST="http://localhost:8787"
+API_HOST="http://127.0.0.1:8787"
 
 [assets]
 binding = "ASSETS"
