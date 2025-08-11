@@ -10,9 +10,11 @@
   } from "flowbite-svelte";
 
   const { user, apiHost }: { user: APIUser; apiHost: string } = $props();
-  const avatarProfilePicture: string = user.avatar
-    ? DiscordImage.getAvatarURL(user.id, user.avatar, 128)
-    : "https://cdn.discordapp.com/embed/avatars/0.png?size=128";
+  const avatarProfilePicture: string = $derived(
+    user.avatar
+      ? DiscordImage.getAvatarURL(user.id, user.avatar, 128)
+      : "https://cdn.discordapp.com/embed/avatars/0.png?size=128"
+  );
 </script>
 
 <section

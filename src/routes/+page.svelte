@@ -1,8 +1,9 @@
 <script lang="ts">
   import { Button } from "flowbite-svelte";
-  import { page } from "$app/state";
+  import type { PageProps } from "./$types";
 
-  const apiHost = $derived<string>(page.data.apiHost);
+  const { data }: PageProps = $props();
+  const apiHost = $derived(data.apiHost);
   import { guildsState, socketConnection } from "$state";
   import { onMount } from "svelte";
 

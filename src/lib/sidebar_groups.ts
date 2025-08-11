@@ -1,36 +1,40 @@
 import type { SidebarItem } from "$lib";
 
 export const serverGroup: SidebarItem[] = [
-  { name: "Overview", href: "", icon: "material-symbols:home-rounded" },
-  { name: "Music", href: "music", icon: "material-symbols:music-note-rounded" },
-  { name: "Settings", href: "setting", icon: "material-symbols:settings" },
+  { name: "Overview", href: "", icon: "line-md:home-simple-filled" },
+  { name: "Music", href: "music", icon: "line-md:folder-music-filled" },
+  { name: "Settings", href: "setting", icon: "line-md:cog-filled" },
 ];
 
 export const securityGroup: SidebarItem[] = [
-  { name: "Antinuke", href: "antinuke", icon: "material-symbols:fingerprint" },
+  { name: "Antinuke", href: "antinuke", icon: "line-md:alert-twotone" },
   {
     name: "Moderation",
     href: "moderation",
-    icon: "material-symbols:person-shield-rounded",
+    icon: "line-md:security-twotone",
   },
   {
     name: "Verification",
     href: "verification",
-    icon: "material-symbols:verified-user-rounded",
+    icon: "line-md:clipboard-check-twotone",
   },
 ];
 
 export const configurationGroup: SidebarItem[] = [
-  { name: "Messages", href: "message", icon: "ant-design:message-filled" },
+  { name: "Messages", href: "message", icon: "line-md:chat-round-dots-filled" },
   {
     name: "Starboards",
     href: "starboard",
-    icon: "material-symbols:star-rounded",
+    icon: "line-md:star-alt-filled",
   },
-  { name: "Tickets", href: "ticket", icon: "famicons:ticket" },
-  { name: "VoiceMaster", href: "voicemaster", icon: "stash:headset-solid" },
+  { name: "Tickets", href: "ticket", icon: "line-md:email-multiple-twotone" },
+  {
+    name: "VoiceMaster",
+    href: "voicemaster",
+    icon: "line-md:volume-high-filled",
+  },
   { name: "Levels", href: "level", icon: "jam:medal-f" },
-  { name: "Logging", href: "logging", icon: "solar:list-outline" },
+  { name: "Logging", href: "logging", icon: "line-md:list-3-filled" },
 ];
 
 export const utilitiesGroup: SidebarItem[] = [
@@ -38,10 +42,10 @@ export const utilitiesGroup: SidebarItem[] = [
   {
     name: "Reminders",
     href: "reminder",
-    icon: "material-symbols:notifications-unread",
+    icon: "line-md:bell-alert-filled",
   },
   { name: "Timers", href: "timer", icon: "material-symbols:timer-5-rounded" },
-  { name: "Embeds", href: "embed", icon: "tabler:code" },
+  { name: "Embeds", href: "embed", icon: "line-md:document-code-twotone" },
   // { name: "Countdowns", href: "countdown", icon: "material-symbols:alarm-rounded" },
   // { name: "Webhooks", href: "webhooks" },
   {
@@ -52,13 +56,13 @@ export const utilitiesGroup: SidebarItem[] = [
 ];
 export const socialIntegrationGroup: SidebarItem[] = [
   { name: "Twitch", href: "twitch", icon: "mdi:twitch" },
-  { name: "YouTube", href: "youtube", icon: "mdi:youtube" },
+  { name: "YouTube", href: "youtube", icon: "line-md:youtube-filled" },
   // { name: "Twitter", href: "twitter" },
-  { name: "Reddit", href: "reddit", icon: "mdi:reddit" },
+  { name: "Reddit", href: "reddit", icon: "line-md:reddit-circle" },
 ];
 
 export const funGroup: SidebarItem[] = [
-  { name: "Birthdays", href: "birthdays", icon: "mingcute:birthday-2-fill" },
+  { name: "Birthdays", href: "birthdays", icon: "line-md:cake-filled" },
   { name: "Boost Perks", href: "booster-perks", icon: "bxs:party" },
   {
     name: "Reaction Triggers",

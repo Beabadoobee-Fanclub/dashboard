@@ -3,11 +3,10 @@
   import type { APIPartialGuild, APIUser } from "discord-api-types/v10";
   import { page } from "$app/state";
   import { guildsState, userState } from "$state";
-  import Topbar from "$components/topbar.svelte";
+  import type { LayoutProps } from "./$types";
 
-  const { children } = $props();
-
-  const apiHost = $derived<string>(page.data.apiHost);
+  const { children, data }: LayoutProps = $props();
+  const apiHost = $derived<string>(data.apiHost);
 
   onMount(async () => {
     userState.discord = await fetchUser();
@@ -47,5 +46,5 @@
 </script>
 
 {#if userState.discord}
-  {@render children?.()}
+  {@render children()}
 {/if}

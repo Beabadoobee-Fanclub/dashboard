@@ -1,6 +1,7 @@
 <script lang="ts">
   import { DiscordImage } from "$lib";
   import { guildsState } from "$state";
+  import Icon from "@iconify/svelte";
   import {
     Card,
     Dropdown,
@@ -9,37 +10,49 @@
     Search,
   } from "flowbite-svelte";
 
-  const { guildId, apiHost }: { guildId: string; apiHost: string } = $props();
+  let {
+    guildId,
+    apiHost,
+    isLoading = $bindable(false),
+  }: { guildId: string; apiHost: string; isLoading: boolean } = $props();
   let guildSearch = $state("");
   const guilds = $derived.by(() => {
     let trimmedSearch = guildSearch.trim().toLowerCase();
-    if (guildSearch.trim() === "") return guildsState;
+    if (trimmedSearch === "") return guildsState;
     return guildsState.filter((guild) =>
       guild.name.toLowerCase().includes(trimmedSearch)
     );
   });
-  const guild = $derived.by(() => {
-    return guildsState.find((g) => g.id === guildId);
+  const guild = $derived(guildsState.find((g) => g.id === guildId));
+
+  $effect(() => {
+    guild ? (isLoading = false) : (isLoading = true);
   });
 </script>
 
-{#if guild}
-  <Card
-    class="server-card flex flex-row gap-2 items-center
-    bg-gradient-to-b from-slate-200 to-slate-300 text-slate-900 dark:from-slate-800 dark:to-slate-900 dark:text-slate-200 
-    max-w-none max-h-none h-20 w-full border-none shadow-lg inset-shadow-sm"
-  >
+<button
+  class="server-card flex flex-row gap-2 items-center rounded-md
+    bg-gradient-to-b from-slate-200 to-slate-300 text-slate-900 dark:from-slate-800 dark:to-slate-900 dark:text-slate-200
+    max-w-none max-h-none h-20 w-full border-none shadow-lg inset-shadow-sm
+    {guild ? 'cursor-pointer' : 'cursor-not-allowed'}"
+  disabled={!guildId}
+>
+  {#if guild}
     <img
-      class="ml-2 rounded-md size-12"
+      class="ml-1 rounded-md size-12"
       src={guild.icon
         ? DiscordImage.getGuildIconURL(guild.id, guild.icon)
         : "https://cdn.discordapp.com/embed/avatars/0.png?size=128"}
       alt="{guild.name} icon"
     />
     <h5 class="inline-block text-sm font-semibold">{guild.name}</h5>
-  </Card>
+  {:else}
+    <Icon icon="line-md:loading-loop" class="mx-auto text-2xl" />
+  {/if}
+</button>
+{#if guild}
   <Dropdown
-    class="rounded-md border-none w-48 max-h-[calc(100vh-5rem)] p-1 bg-gray-900"
+    class="rounded-md -mt-3 border-none w-52 max-h-[calc(100vh-5rem)] p-1 bg-slate-200 dark:bg-slate-950"
     triggeredBy=".server-card"
   >
     <Input
